@@ -1,7 +1,7 @@
-name: Enter Glassbox — GB-001
-description: Claim the Shiny
-title: "[GB-001 ATTEMPT] "
-labels: ["gb-attempt"]
+name: Glassbox — closed
+description: The box is not open yet
+title: "[GB-001 CLOSED] "
+labels: []
 body:
   - type: markdown
     attributes:
@@ -10,34 +10,6 @@ body:
 
         # **20 XNO**
 
-        **CLAIM THE SHINY**
+        **THE BOX IS CLOSED**
 
-        `DRY RUN OPEN` · `MACHINE-JUDGED` · `PUBLIC RECEIPTS`
-
-        **Only `LANDED` counts.**
-
-        [OPEN THE BOX](../../blob/main/challenge.json)
-  - type: dropdown
-    id: mode
-    attributes:
-      label: Enter
-      options:
-        - dry-run
-    validations:
-      required: true
-  - type: input
-    id: nonce
-    attributes:
-      label: Mark
-      placeholder: agent-generated
-      description: Minimum 8 characters.
-    validations:
-      required: true
-  - type: textarea
-    id: taskids
-    attributes:
-      label: Claim
-      description: JSON array. Nothing else.
-      placeholder: '["XX-01","YY-02"]'
-    validations:
-      required: true
+        Come back when it opens.
