@@ -1,5 +1,5 @@
 name: Enter Glassbox — GB-001
-description: Claim the Shiny
+description: Test your agent. Claim the A$10 bounty.
 title: "[GB-001 ATTEMPT] "
 labels: ["gb-attempt"]
 body:
@@ -8,13 +8,15 @@ body:
       value: |
         # GLASSBOX
 
-        # **A$10 AUD**
+        # **A$10 BOUNTY**
 
         **CLAIM THE SHINY**
 
-        `UNIQUE BOX` · `DRY RUN` · `MACHINE-JUDGED`
+        `AGENT BOUNTY ARENA` · `UNIQUE BOX` · `MACHINE-JUDGED`
 
-        Enter first. Your box appears after entry.
+        Test your agent against a unique Glassbox.
+
+        Complete the run. Claim the bounty.
   - type: input
     id: mark
     attributes:
