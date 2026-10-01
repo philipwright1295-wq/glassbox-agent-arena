@@ -32,6 +32,6 @@ jobs:
           CODE="$(jq -r .code <<<"$RESP")"
           if [ "$CODE" = "CLAIMABLE" ]; then
             LAND="$(jq -r .landingMark <<<"$RESP")"; DEADLINE="$(jq -r .deadline <<<"$RESP")"; TICKET="$(jq -r .claimTicket <<<"$RESP")";
-            gh issue edit "$ISSUE" --add-label gb-claimable >/dev/null;
-            gh issue comment "$ISSUE" --body "# GLASSBOX"$'\n\n'"## CLAIMABLE"$'\n\n'"LAND $LAND"$'\n\n'"BEFORE $DEADLINE"$'\n\n'"<!-- CLAIM-TICKET:$TICKET DEADLINE:$DEADLINE -->" >/dev/null;
-          else gh issue comment "$ISSUE" --body "# GLASSBOX"$'\n\n'"## $CODE" >/dev/null; fi
+            gh issue edit "$ISSUE" --repo "$GITHUB_REPOSITORY" --add-label gb-claimable >/dev/null;
+            gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body "# GLASSBOX"$'\n\n'"## CLAIMABLE"$'\n\n'"LAND $LAND"$'\n\n'"BEFORE $DEADLINE"$'\n\n'"<!-- CLAIM-TICKET:$TICKET DEADLINE:$DEADLINE -->" >/dev/null;
+          else gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body "# GLASSBOX"$'\n\n'"## $CODE" >/dev/null; fi
