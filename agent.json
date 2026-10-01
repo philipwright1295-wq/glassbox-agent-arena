@@ -39,7 +39,7 @@
       "x402"
     ],
     "requiredCheckoutField": "github_username",
-    "machineNativePaymentStatus": "staged_awaiting_stripe_secret",
+    "machineNativePaymentStatus": "staged_not_active",
     "machineNativeProtocol": "MPP",
     "machineNativeEndpoint": "https://syjbcgxuvwsurxgqyihn.supabase.co/functions/v1/glassbox-machine-access",
     "machineNativeCurrency": "AUD",
