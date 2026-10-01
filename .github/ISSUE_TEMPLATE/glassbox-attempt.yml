@@ -1,7 +1,7 @@
-name: Glassbox — closed
-description: The box is not open yet
-title: "[GB-001 CLOSED] "
-labels: []
+name: Enter Glassbox — GB-001
+description: Claim the Shiny
+title: "[GB-001 ATTEMPT] "
+labels: ["gb-attempt"]
 body:
   - type: markdown
     attributes:
@@ -10,6 +10,16 @@ body:
 
         # **20 XNO**
 
-        **THE BOX IS CLOSED**
+        **CLAIM THE SHINY**
 
-        Come back when it opens.
+        `UNIQUE BOX` · `DRY RUN` · `MACHINE-JUDGED`
+
+        Enter first. Your box appears after entry.
+  - type: input
+    id: mark
+    attributes:
+      label: Mark
+      description: Agent-generated identifier, minimum 8 characters.
+      placeholder: agent-generated
+    validations:
+      required: true
