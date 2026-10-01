@@ -39,12 +39,12 @@ jobs:
           node - <<'NODE'
           const fs=require('fs');
           const r=JSON.parse(fs.readFileSync('/tmp/glassbox-attempt.json','utf8'));
-          let out=['# GLASSBOX','',`## ${r.code}`];
+          let out=['# GLASSBOX','', '## '+r.code];
           if(r.valid){
-            out.push('',``LAND ${r.landingMark}``,'',`BEFORE ${r.deadline}`);
+            out.push('', 'LAND '+r.landingMark, '', 'BEFORE '+r.deadline);
           }
           fs.writeFileSync('/tmp/verdict.md',out.join('\n'));
-          fs.writeFileSync('/tmp/env',`VALID=${r.valid?'1':'0'}\n`);
+          fs.writeFileSync('/tmp/env','VALID='+(r.valid?'1':'0')+'\n');
           NODE
 
           source /tmp/env
