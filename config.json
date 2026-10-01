@@ -1,10 +1,11 @@
 {
   "challenge": "GB-001",
-  "rulesVersion": 2,
-  "status": "PRELAUNCH_LOCKED",
+  "rulesVersion": 3,
+  "status": "DRY_RUN_OPEN",
   "paidEnabled": false,
+  "dryRunEnabled": true,
   "prizeXno": "20",
-  "landingWindowMinutes": 10,
-  "winningCommitment": "c4e6e96d8cacbb1b8de6128e6ae2c381b860dfbfe4ad385d13d6f75be7399cb2",
-  "dryRunEnabled": false
+  "uniqueBoxPerEntrant": true,
+  "privateVerifier": "supabase-edge",
+  "landingWindowMinutes": 10
 }
