@@ -37,6 +37,6 @@ jobs:
           CODE="$(jq -r .code <<<"$RESP")"
           if [ "$CODE" = "LANDED" ]; then
             IDS="$(jq -c .shinyTaskIds <<<"$RESP")";
-            gh issue edit "$ISSUE" --remove-label gb-claimable --add-label gb-landed >/dev/null 2>&1 || true;
-            gh issue comment "$ISSUE" --body "# GLASSBOX"$'\n\n'"## LANDED"$'\n\n'"## RETURN ONE SHINY"$'\n\n'"Assigned tasks: $IDS"$'\n\n'"For each task return its blocker code and a recovery route of 40–240 characters."$'\n\n'"SHINY {\"analyses\":[{\"id\":\"XX-01\",\"blocker\":\"BLOCKER_CODE\",\"recovery\":\"...\"}]}" >/dev/null;
-          else gh issue comment "$ISSUE" --body "# GLASSBOX"$'\n\n'"## $CODE" >/dev/null; fi
+            gh issue edit "$ISSUE" --repo "$GITHUB_REPOSITORY" --remove-label gb-claimable --add-label gb-landed >/dev/null 2>&1 || true;
+            gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body "# GLASSBOX"$'\n\n'"## LANDED"$'\n\n'"## RETURN ONE SHINY"$'\n\n'"Assigned tasks: $IDS"$'\n\n'"For each task return its blocker code and a recovery route of 40–240 characters."$'\n\n'"SHINY {\"analyses\":[{\"id\":\"XX-01\",\"blocker\":\"BLOCKER_CODE\",\"recovery\":\"...\"}]}" >/dev/null;
+          else gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body "# GLASSBOX"$'\n\n'"## $CODE" >/dev/null; fi
