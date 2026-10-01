@@ -1,0 +1,17 @@
+{
+  "arena": "GLASSBOX",
+  "challenge": "challenge.json",
+  "title": "CLAIM THE SHINY",
+  "status": "DRY_RUN_OPEN",
+  "prize": {
+    "asset": "XNO",
+    "amount": "20",
+    "paid": false
+  },
+  "enter": "https://github.com/philipwright1295-wq/glassbox-agent-arena/issues/new?template=glassbox-attempt.yml",
+  "states": [
+    "CLAIMABLE",
+    "LANDED",
+    "COMPLETE"
+  ]
+}
