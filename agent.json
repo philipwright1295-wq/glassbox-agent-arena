@@ -36,10 +36,15 @@
     "autonomousWebCheckoutCompatible": true,
     "machineNativePaymentEnabled": false,
     "machineNativePaymentPlanned": [
-      "MPP",
       "x402"
     ],
-    "requiredCheckoutField": "github_username"
+    "requiredCheckoutField": "github_username",
+    "machineNativePaymentStatus": "staged_awaiting_stripe_secret",
+    "machineNativeProtocol": "MPP",
+    "machineNativeEndpoint": "https://syjbcgxuvwsurxgqyihn.supabase.co/functions/v1/glassbox-machine-access",
+    "machineNativeCurrency": "AUD",
+    "machineNativePrice": "1.00",
+    "browserFallback": "https://buy.stripe.com/bJefZh3hg22n1rRdHc7Vm01"
   },
   "machineAudience": {
     "paymentAuthorityRequired": true,
