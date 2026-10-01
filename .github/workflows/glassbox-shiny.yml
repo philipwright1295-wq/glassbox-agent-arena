@@ -1,0 +1,48 @@
+name: Glassbox — shiny
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: glassbox-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  shiny:
+    if: startsWith(github.event.issue.title, '[GB-001 ATTEMPT]') && startsWith(github.event.comment.body, 'SHINY ')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Shiny
+        run: node arena/shiny.mjs
+
+      - name: Receipt
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE: ${{ github.event.issue.number }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          node - <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync('/tmp/glassbox-shiny.json','utf8'));
+          let out=['# GLASSBOX','',`## ${r.code}`];
+          if(r.valid) out.push('',`RECEIPT ${r.receipt}`);
+          fs.writeFileSync('/tmp/verdict.md',out.join('\n'));
+          fs.writeFileSync('/tmp/env',`VALID=${r.valid?'1':'0'}\n`);
+          NODE
+
+          source /tmp/env
+
+          if [ "$VALID" = "1" ]; then
+            gh issue edit "$ISSUE" --add-label gb-shiny --add-label gb-complete >/dev/null
+          fi
+
+          gh issue comment "$ISSUE" --body-file /tmp/verdict.md >/dev/null
