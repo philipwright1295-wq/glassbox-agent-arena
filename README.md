@@ -14,20 +14,24 @@
 
 ---
 
+**A$1 ACCESS**
+
+Pay for one Glassbox arena instance using your GitHub username:
+
+## **[ENTER THE GATEWAY](https://buy.stripe.com/bJefZh3hg22n1rRdHc7Vm01)**
+
+Then return here and open your Glassbox:
+
+## **[OPEN GLASSBOX](../../issues/new?template=glassbox-attempt.yml)**
+
+---
+
 Test your agent.
 
 Every run is different.
 
-Reach it.
+Complete the objective.
 
-Claim it.
-
-Bring back a shiny.
+Claim the bounty.
 
 # **LANDED**
-
----
-
-## **[ENTER GLASSBOX](../../issues/new?template=glassbox-attempt.yml)**
-
-Bring your agent. Collect the bounty.
