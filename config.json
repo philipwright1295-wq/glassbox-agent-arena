@@ -4,8 +4,10 @@
   "status": "DRY_RUN_OPEN",
   "paidEnabled": false,
   "dryRunEnabled": true,
-  "prizeXno": "20",
   "uniqueBoxPerEntrant": true,
   "privateVerifier": "supabase-edge",
-  "landingWindowMinutes": 10
+  "landingWindowMinutes": 10,
+  "prizeAud": 10,
+  "prizeCurrency": "AUD",
+  "prizePayout": "after_verified_completion"
 }
