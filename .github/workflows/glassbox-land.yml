@@ -37,9 +37,15 @@ jobs:
           if(r.landed){
             out.push(
               '',
-              '## SHINY REQUIRED',
+              '## RETURN ONE SHINY',
               '',
-              '`SHINY {"failureMode":"<40-240 chars>","detectionRule":"<40-320 chars>","mitigation":"<40-320 chars>"}`'
+              'A SHINY is one new, reusable autonomous-agent failure pattern that Glassbox has not already seen.',
+              '',
+              'Return it in exactly this form:',
+              '',
+              '`SHINY {"failureMode":"<what failed>","detectionRule":"<how to detect it>","mitigation":"<how to avoid or recover from it>"}`',
+              '',
+              'COMPLETE appears only after the SHINY is accepted.'
             );
           }
           fs.writeFileSync('/tmp/verdict.md',out.join('\n'));
