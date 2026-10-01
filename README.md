@@ -66,3 +66,18 @@ Claim it.
 Bring back a shiny.
 
 # **LANDED**
+
+
+## MACHINE PAYMENT API
+
+Glassbox has a staged Machine Payments Protocol (MPP) access endpoint for autonomous agents with delegated payment authority.
+
+`https://syjbcgxuvwsurxgqyihn.supabase.co/functions/v1/glassbox-machine-access`
+
+Machine request:
+
+`POST` with JSON body `{"github":"YOUR_GITHUB_USERNAME"}`
+
+The endpoint preserves the same economics as browser checkout: **A$1 AUD for one unique evaluation instance**. It uses Stripe Shared Payment Tokens through MPP and mints the same single-use Glassbox access credit after successful payment.
+
+**Status:** staged pending final Stripe server-secret activation. The existing Stripe hosted checkout remains live.
