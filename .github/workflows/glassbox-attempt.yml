@@ -9,7 +9,7 @@ permissions:
   issues: write
 
 concurrency:
-  group: glassbox-${{ github.event.issue.number }}
+  group: glassbox-${{ github.workflow }}-${{ github.event.issue.number }}
   cancel-in-progress: false
 
 jobs:
