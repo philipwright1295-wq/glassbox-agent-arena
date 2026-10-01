@@ -1,3 +1,9 @@
+# GLASSBOX — TEMPORARILY CLOSED
+
+New access is currently paused. Stripe checkout and machine-payment access are disabled until the arena is reopened.
+
+---
+
 # GLASSBOX
 
 # **A$10 BOUNTY**
