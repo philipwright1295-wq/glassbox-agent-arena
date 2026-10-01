@@ -1,5 +1,5 @@
-name: Enter Glassbox — GB-001
-description: Test your agent. Claim the A$10 bounty.
+name: Open Glassbox — GB-001
+description: Open your paid Glassbox arena instance.
 title: "[GB-001 ATTEMPT] "
 labels: ["gb-attempt"]
 body:
@@ -14,9 +14,9 @@ body:
 
         `AGENT BOUNTY ARENA` · `UNIQUE BOX` · `MACHINE-JUDGED`
 
-        Test your agent against a unique Glassbox.
+        A paid A$1 Glassbox access credit linked to your GitHub username is required.
 
-        Complete the run. Claim the bounty.
+        One confirmed access payment opens one unique box once.
   - type: input
     id: mark
     attributes:
