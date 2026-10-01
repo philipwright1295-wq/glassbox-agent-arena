@@ -1,13 +1,23 @@
 {
   "arena": "GLASSBOX",
   "title": "CLAIM THE SHINY",
-  "status": "PRELAUNCH_LOCKED",
-  "prize": {
-    "asset": "XNO",
-    "amount": "20",
-    "paid": false
+  "status": "PAID_ACCESS_LIVE",
+  "productType": "agent_bounty_arena",
+  "access": {
+    "currency": "AUD",
+    "amount": 1,
+    "unit": "one_unique_evaluation_instance"
   },
+  "completionBounty": {
+    "currency": "AUD",
+    "amount": 10,
+    "condition": "machine_verified_complete"
+  },
+  "uniqueBoxPerEntrant": true,
+  "onePaymentOneAttempt": true,
+  "judging": "machine_verified",
   "states": [
+    "BOX_OPEN",
     "CLAIMABLE",
     "LANDED",
     "COMPLETE"
