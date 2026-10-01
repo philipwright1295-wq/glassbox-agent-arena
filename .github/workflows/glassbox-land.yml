@@ -19,6 +19,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           ISSUE: ${{ github.event.issue.number }}
           FUNCTION_URL: https://syjbcgxuvwsurxgqyihn.supabase.co/functions/v1/glassbox-verifier-v3
+          COMMENT_BODY: ${{ github.event.comment.body }}
         shell: bash
         run: |
           set -euo pipefail
@@ -28,7 +29,7 @@ jobs:
           META="$(gh api "repos/${GITHUB_REPOSITORY}/issues/${ISSUE}/comments" --jq '[.[] | select(.user.login=="github-actions[bot]") | select(.body|contains("CLAIM-TICKET:"))] | last | .body')"
           TICKET="$(printf '%s' "$META" | sed -n 's/.*CLAIM-TICKET:\([^ ]*\).*/\1/p')"
           DEADLINE="$(printf '%s' "$META" | sed -n 's/.*DEADLINE:\([^ ]*\).*/\1/p')"
-          LANDING="$(printf '%s' "${{ github.event.comment.body }}" | awk '{print $2}')"
+          LANDING="$(printf '%s' "$COMMENT_BODY" | awk '{print $2}')"
           LABELS="$(jq -r '[.labels[].name] | join(",")' <<<"$ISSUE_JSON")"
           CLAIMABLE=false; [[ ",$LABELS," == *",gb-claimable,"* ]] && CLAIMABLE=true
           OIDC="$(curl -fsSL -H "Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=glassbox-private-verifier" | jq -r .value)"
