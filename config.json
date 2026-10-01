@@ -1,7 +1,7 @@
 {
   "challenge": "GB-001",
   "rulesVersion": 3,
-  "status": "LIVE",
+  "status": "PAID_ACCESS_LIVE",
   "paidEnabled": true,
   "dryRunEnabled": false,
   "uniqueBoxPerEntrant": true,
@@ -20,5 +20,8 @@
   "accessPaymentLink": "https://buy.stripe.com/bJefZh3hg22n1rRdHc7Vm01",
   "accessPaymentLinkId": "plink_1ULaQDDxQ3BIjnArI5IST0GE",
   "onePaymentOneBox": true,
-  "bountyCondition": "machine_verified_complete"
+  "bountyCondition": "machine_verified_complete",
+  "paymentProvider": "stripe",
+  "paymentLinkId": "plink_1ULaQDDxQ3BIjnArI5IST0GE",
+  "onePaymentOneAttempt": true
 }
