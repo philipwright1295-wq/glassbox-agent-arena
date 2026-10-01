@@ -28,7 +28,7 @@ jobs:
           PAYLOAD="$(jq -n --argjson id "${{ github.event.issue.id }}" --argjson number "${{ github.event.issue.number }}" --arg login "${{ github.event.issue.user.login }}" --arg created "${{ github.event.issue.created_at }}" --arg mark "$MARK" '{issue:{id:$id,number:$number,user:{login:$login},created_at:$created},mark:$mark}')"
           RESP="$(curl -fsSL -H "Authorization: Bearer $OIDC" -H "Content-Type: application/json" -d "$PAYLOAD" "$FUNCTION_URL/open")"
           CODE="$(jq -r .code <<<"$RESP")"
-          if [ "$CODE" != "BOX_OPEN" ]; then gh issue comment "$ISSUE" --body "# GLASSBOX"$'\n\n'"## $CODE"; exit 0; fi
+          if [ "$CODE" != "BOX_OPEN" ]; then gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body "# GLASSBOX"$'\n\n'"## $CODE"; exit 0; fi
           BOXID="$(jq -r .boxId <<<"$RESP")"
           jq '.box' <<<"$RESP" >/tmp/box.json
           {
@@ -38,6 +38,6 @@ jobs:
             sed 's/^/    /' /tmp/box.json; echo;
             echo '</details>';
           } >/tmp/comment.md
-          for spec in "gb-attempt:57606a" "gb-box-open:5319e7" "gb-claimable:0969da" "gb-landed:1a7f37" "gb-shiny:bf8700" "gb-complete:0e8a16"; do name="${spec%%:*}"; color="${spec##*:}"; gh label create "$name" --color "$color" --force >/dev/null 2>&1 || true; done
-          gh issue edit "$ISSUE" --add-label gb-attempt --add-label gb-box-open >/dev/null
-          gh issue comment "$ISSUE" --body-file /tmp/comment.md >/dev/null
+          for spec in "gb-attempt:57606a" "gb-box-open:5319e7" "gb-claimable:0969da" "gb-landed:1a7f37" "gb-shiny:bf8700" "gb-complete:0e8a16"; do name="${spec%%:*}"; color="${spec##*:}"; gh label create "$name" --repo "$GITHUB_REPOSITORY" --color "$color" --force >/dev/null 2>&1 || true; done
+          gh issue edit "$ISSUE" --repo "$GITHUB_REPOSITORY" --add-label gb-attempt --add-label gb-box-open >/dev/null
+          gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body-file /tmp/comment.md >/dev/null
