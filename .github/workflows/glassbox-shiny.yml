@@ -7,42 +7,29 @@ on:
 permissions:
   contents: read
   issues: write
-
-concurrency:
-  group: glassbox-${{ github.workflow }}-${{ github.event.issue.number }}
-  cancel-in-progress: false
+  id-token: write
 
 jobs:
   shiny:
     if: startsWith(github.event.issue.title, '[GB-001 ATTEMPT]') && startsWith(github.event.comment.body, 'SHINY ')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Shiny
-        run: node arena/shiny.mjs
-
-      - name: Receipt
+      - name: Verify shiny
         env:
           GH_TOKEN: ${{ github.token }}
           ISSUE: ${{ github.event.issue.number }}
+          FUNCTION_URL: https://syjbcgxuvwsurxgqyihn.supabase.co/functions/v1/glassbox-verifier-v3
         shell: bash
         run: |
           set -euo pipefail
-
-          node - <<'NODE'
-          const fs=require('fs');
-          const r=JSON.parse(fs.readFileSync('/tmp/glassbox-shiny.json','utf8'));
-          let out=['# GLASSBOX','',`## ${r.code}`];
-          if(r.valid) out.push('',`RECEIPT ${r.receipt}`);
-          fs.writeFileSync('/tmp/verdict.md',out.join('\n'));
-          fs.writeFileSync('/tmp/env',`VALID=${r.valid?'1':'0'}\n`);
-          NODE
-
-          source /tmp/env
-
-          if [ "$VALID" = "1" ]; then
-            gh issue edit "$ISSUE" --add-label gb-shiny --add-label gb-complete >/dev/null
-          fi
-
-          gh issue comment "$ISSUE" --body-file /tmp/verdict.md >/dev/null
+          ISSUE_JSON="$(gh api "repos/${GITHUB_REPOSITORY}/issues/${ISSUE}")"
+          BODY="$(jq -r .body <<<"$ISSUE_JSON")"
+          MARK="$(printf '%s' "$BODY" | awk '/^### Mark$/{getline; while($0==""){getline}; print; exit}')"
+          PACKET="$(printf '%s' "${{ github.event.comment.body }}" | sed 's/^SHINY //')"
+          LABELS="$(jq -r '[.labels[].name] | join(",")' <<<"$ISSUE_JSON")"
+          LANDED=false; [[ ",$LABELS," == *",gb-landed,"* ]] && LANDED=true
+          OIDC="$(curl -fsSL -H "Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=glassbox-private-verifier" | jq -r .value)"
+          PAYLOAD="$(jq -n --argjson id "$(jq .id <<<"$ISSUE_JSON")" --argjson number "$(jq .number <<<"$ISSUE_JSON")" --arg login "$(jq -r .user.login <<<"$ISSUE_JSON")" --arg created "$(jq -r .created_at <<<"$ISSUE_JSON")" --arg mark "$MARK" --arg actor "${{ github.event.comment.user.login }}" --argjson landed "$LANDED" --argjson packet "$PACKET" '{issue:{id:$id,number:$number,user:{login:$login},created_at:$created},mark:$mark,actor:$actor,landed:$landed,analyses:$packet.analyses}')"
+          RESP="$(curl -fsSL -H "Authorization: Bearer $OIDC" -H "Content-Type: application/json" -d "$PAYLOAD" "$FUNCTION_URL/shiny")"
+          CODE="$(jq -r .code <<<"$RESP")"
+          if [ "$CODE" = "COMPLETE" ]; then RECEIPT="$(jq -r .receipt <<<"$RESP")"; gh issue edit "$ISSUE" --add-label gb-shiny --add-label gb-complete >/dev/null; gh issue comment "$ISSUE" --body "# GLASSBOX"$'\n\n'"## COMPLETE"$'\n\n'"RECEIPT $RECEIPT" >/dev/null; else gh issue comment "$ISSUE" --body "# GLASSBOX"$'\n\n'"## $CODE" >/dev/null; fi
