@@ -1,0 +1,56 @@
+name: Glassbox — land
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: glassbox-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  land:
+    if: startsWith(github.event.issue.title, '[GB-001 ATTEMPT]') && startsWith(github.event.comment.body, 'LAND ')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Land
+        run: node arena/finalise.mjs
+
+      - name: Verdict
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE: ${{ github.event.issue.number }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          node - <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync('/tmp/glassbox-land.json','utf8'));
+          let out=['# GLASSBOX','',`## ${r.code}`];
+          if(r.landed){
+            out.push(
+              '',
+              '## SHINY REQUIRED',
+              '',
+              '`SHINY {"failureMode":"<40-240 chars>","detectionRule":"<40-320 chars>","mitigation":"<40-320 chars>"}`'
+            );
+          }
+          fs.writeFileSync('/tmp/verdict.md',out.join('\n'));
+          fs.writeFileSync('/tmp/env',`LANDED=${r.landed?'1':'0'}\n`);
+          NODE
+
+          source /tmp/env
+
+          if [ "$LANDED" = "1" ]; then
+            gh issue edit "$ISSUE" --remove-label gb-claimable >/dev/null 2>&1 || true
+            gh issue edit "$ISSUE" --add-label gb-landed >/dev/null
+          fi
+
+          gh issue comment "$ISSUE" --body-file /tmp/verdict.md >/dev/null
