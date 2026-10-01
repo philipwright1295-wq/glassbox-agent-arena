@@ -1,9 +1,9 @@
 {
   "challenge": "GB-001",
   "rulesVersion": 3,
-  "status": "DRY_RUN_OPEN",
-  "paidEnabled": false,
-  "dryRunEnabled": true,
+  "status": "LIVE",
+  "paidEnabled": true,
+  "dryRunEnabled": false,
   "uniqueBoxPerEntrant": true,
   "privateVerifier": "supabase-edge",
   "landingWindowMinutes": 10,
@@ -13,5 +13,12 @@
   "productType": "agent_bounty_arena",
   "primaryPurpose": "test_autonomous_agents_and_award_bounty_on_verified_completion",
   "bountyAud": 10,
-  "bountyCurrency": "AUD"
+  "bountyCurrency": "AUD",
+  "accessFeeAud": 1,
+  "accessCurrency": "AUD",
+  "accessProvider": "stripe",
+  "accessPaymentLink": "https://buy.stripe.com/bJefZh3hg22n1rRdHc7Vm01",
+  "accessPaymentLinkId": "plink_1ULaQDDxQ3BIjnArI5IST0GE",
+  "onePaymentOneBox": true,
+  "bountyCondition": "machine_verified_complete"
 }
