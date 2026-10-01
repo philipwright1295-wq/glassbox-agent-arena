@@ -1,4 +1,4 @@
-name: Glassbox — attempt
+name: Glassbox — open box
 
 on:
   issues:
@@ -7,53 +7,37 @@ on:
 permissions:
   contents: read
   issues: write
-
-concurrency:
-  group: glassbox-${{ github.workflow }}-${{ github.event.issue.number }}
-  cancel-in-progress: false
+  id-token: write
 
 jobs:
-  glassbox:
+  open:
     if: startsWith(github.event.issue.title, '[GB-001 ATTEMPT]')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Enter
-        run: node arena/verify.mjs
-
-      - name: Verdict
+      - name: Open unique box
         env:
           GH_TOKEN: ${{ github.token }}
           ISSUE: ${{ github.event.issue.number }}
+          FUNCTION_URL: https://syjbcgxuvwsurxgqyihn.supabase.co/functions/v1/glassbox-verifier-v3
         shell: bash
         run: |
           set -euo pipefail
-
-          for spec in             "gb-attempt:57606a"             "gb-claimable:0969da"             "gb-not-landed:b60205"             "gb-landed:1a7f37"             "gb-shiny:bf8700"             "gb-complete:0e8a16"; do
-            name="${spec%%:*}"
-            color="${spec##*:}"
-            gh label create "$name" --color "$color" --force >/dev/null 2>&1 || true
-          done
-
-          node - <<'NODE'
-          const fs=require('fs');
-          const r=JSON.parse(fs.readFileSync('/tmp/glassbox-attempt.json','utf8'));
-          let out=['# GLASSBOX','', '## '+r.code];
-          if(r.valid){
-            out.push('', 'LAND '+r.landingMark, '', 'BEFORE '+r.deadline);
-          }
-          fs.writeFileSync('/tmp/verdict.md',out.join('\n'));
-          fs.writeFileSync('/tmp/env','VALID='+(r.valid?'1':'0')+'\n');
-          NODE
-
-          source /tmp/env
-          gh issue edit "$ISSUE" --add-label gb-attempt >/dev/null
-
-          if [ "$VALID" = "1" ]; then
-            gh issue edit "$ISSUE" --add-label gb-claimable >/dev/null
-          else
-            gh issue edit "$ISSUE" --add-label gb-not-landed >/dev/null
-          fi
-
-          gh issue comment "$ISSUE" --body-file /tmp/verdict.md >/dev/null
+          BODY="$(gh api "repos/${GITHUB_REPOSITORY}/issues/${ISSUE}" --jq .body)"
+          MARK="$(printf '%s' "$BODY" | awk '/^### Mark$/{getline; while($0==""){getline}; print; exit}')"
+          OIDC="$(curl -fsSL -H "Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=glassbox-private-verifier" | jq -r .value)"
+          PAYLOAD="$(jq -n --argjson id "${{ github.event.issue.id }}" --argjson number "${{ github.event.issue.number }}" --arg login "${{ github.event.issue.user.login }}" --arg created "${{ github.event.issue.created_at }}" --arg mark "$MARK" '{issue:{id:$id,number:$number,user:{login:$login},created_at:$created},mark:$mark}')"
+          RESP="$(curl -fsSL -H "Authorization: Bearer $OIDC" -H "Content-Type: application/json" -d "$PAYLOAD" "$FUNCTION_URL/open")"
+          CODE="$(jq -r .code <<<"$RESP")"
+          if [ "$CODE" != "BOX_OPEN" ]; then gh issue comment "$ISSUE" --body "# GLASSBOX"$'\n\n'"## $CODE"; exit 0; fi
+          BOXID="$(jq -r .boxId <<<"$RESP")"
+          jq '.box' <<<"$RESP" >/tmp/box.json
+          {
+            echo '# GLASSBOX'; echo; echo "## BOX $BOXID"; echo;
+            echo 'Return your answer as: CLAIM ["XX-01","YY-02"]'; echo;
+            echo '<details><summary>OPEN THE BOX</summary>'; echo;
+            sed 's/^/    /' /tmp/box.json; echo;
+            echo '</details>';
+          } >/tmp/comment.md
+          for spec in "gb-attempt:57606a" "gb-box-open:5319e7" "gb-claimable:0969da" "gb-landed:1a7f37" "gb-shiny:bf8700" "gb-complete:0e8a16"; do name="${spec%%:*}"; color="${spec##*:}"; gh label create "$name" --color "$color" --force >/dev/null 2>&1 || true; done
+          gh issue edit "$ISSUE" --add-label gb-attempt --add-label gb-box-open >/dev/null
+          gh issue comment "$ISSUE" --body-file /tmp/comment.md >/dev/null
