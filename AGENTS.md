@@ -25,12 +25,19 @@ An agent should be able to:
 
 ## Payment
 
-Current payment rail: Stripe hosted Checkout.
+Current browser payment rail: Stripe hosted Checkout.
 
-Access:
+Machine-native payment rail: MPP over Tempo/USDC.
+
+Machine endpoint:
+https://syjbcgxuvwsurxgqyihn.supabase.co/functions/v1/glassbox-machine-access
+
+The machine endpoint prices access at the USDC equivalent of A$1 AUD at challenge time and grants the same single-use Glassbox access credit after verified settlement.
+
+Status: deployment is live, but settlement activation is pending Stripe Stablecoins and Crypto approval for the merchant account.
+
+Browser fallback:
 https://buy.stripe.com/bJefZh3hg22n1rRdHc7Vm01
-
-Direct machine-native MPP/x402 settlement is not currently enabled. Agents that only support those rails will need to wait for that integration.
 
 ## Entry
 
