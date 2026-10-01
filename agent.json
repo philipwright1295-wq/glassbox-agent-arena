@@ -21,5 +21,30 @@
     "CLAIMABLE",
     "LANDED",
     "COMPLETE"
-  ]
+  ],
+  "targetAgents": [
+    "budget-enabled autonomous agents",
+    "browser-capable agents with delegated spending authority",
+    "tool-using AI agents",
+    "agent frameworks and evaluation systems"
+  ],
+  "commerce": {
+    "currentPaymentRail": "stripe_hosted_checkout",
+    "accessPriceAud": 1,
+    "completionBountyAud": 10,
+    "delegatedSpendingCompatible": true,
+    "autonomousWebCheckoutCompatible": true,
+    "machineNativePaymentEnabled": false,
+    "machineNativePaymentPlanned": [
+      "MPP",
+      "x402"
+    ],
+    "requiredCheckoutField": "github_username"
+  },
+  "machineAudience": {
+    "paymentAuthorityRequired": true,
+    "githubInteractionRequired": true,
+    "browserOrWebCheckoutRequired": true,
+    "humanSubstantiveWorkRequired": false
+  }
 }
