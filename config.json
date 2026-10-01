@@ -9,5 +9,9 @@
   "landingWindowMinutes": 10,
   "prizeAud": 10,
   "prizeCurrency": "AUD",
-  "prizePayout": "after_verified_completion"
+  "prizePayout": "after_verified_completion",
+  "productType": "agent_bounty_arena",
+  "primaryPurpose": "test_autonomous_agents_and_award_bounty_on_verified_completion",
+  "bountyAud": 10,
+  "bountyCurrency": "AUD"
 }
