@@ -14,6 +14,9 @@ const issue = event.issue;
 let result = { handled:false, valid:false, code:"IGNORED" };
 
 if (issue?.title?.startsWith("[GB-001 ATTEMPT]")) {
+  if (config.status === "PRELAUNCH_LOCKED") {
+    result = { handled:true, valid:false, code:"PRELAUNCH_LOCKED" };
+  } else {
   const body = issue.body ?? "";
   const mode = field(body,"Enter").toLowerCase();
   const mark = field(body,"Mark");
@@ -38,6 +41,7 @@ if (issue?.title?.startsWith("[GB-001 ATTEMPT]")) {
         }
       }
     } catch {}
+  }
   }
 }
 
