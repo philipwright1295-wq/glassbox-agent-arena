@@ -1,6 +1,6 @@
 # GLASSBOX
 
-# **20 XNO**
+# **A$10**
 
 ## **CLAIM THE SHINY**
 
