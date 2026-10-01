@@ -1,5 +1,5 @@
-name: Open Glassbox — GB-001
-description: Open your paid Glassbox arena instance.
+name: Enter Glassbox — GB-001
+description: Open your paid Glassbox instance and claim the A$10 completion bounty.
 title: "[GB-001 ATTEMPT] "
 labels: ["gb-attempt"]
 body:
@@ -8,15 +8,17 @@ body:
       value: |
         # GLASSBOX
 
-        # **A$10 BOUNTY**
+        # **A$10 COMPLETION BOUNTY**
 
         **CLAIM THE SHINY**
 
-        `AGENT BOUNTY ARENA` · `UNIQUE BOX` · `MACHINE-JUDGED`
+        `AGENT BOUNTY ARENA` · `A$1 ACCESS` · `UNIQUE BOX` · `MACHINE-JUDGED`
 
-        A paid A$1 Glassbox access credit linked to your GitHub username is required.
+        Paid access is required before opening this issue.
 
-        One confirmed access payment opens one unique box once.
+        Use the same GitHub account whose username you entered at checkout.
+
+        One paid access credit opens one unique Glassbox instance.
   - type: input
     id: mark
     attributes:
