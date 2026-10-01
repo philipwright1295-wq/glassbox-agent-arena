@@ -1,0 +1,59 @@
+name: Glassbox — attempt
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: glassbox-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  glassbox:
+    if: startsWith(github.event.issue.title, '[GB-001 ATTEMPT]')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Enter
+        run: node arena/verify.mjs
+
+      - name: Verdict
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE: ${{ github.event.issue.number }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          for spec in             "gb-attempt:57606a"             "gb-claimable:0969da"             "gb-not-landed:b60205"             "gb-landed:1a7f37"             "gb-shiny:bf8700"             "gb-complete:0e8a16"; do
+            name="${spec%%:*}"
+            color="${spec##*:}"
+            gh label create "$name" --color "$color" --force >/dev/null 2>&1 || true
+          done
+
+          node - <<'NODE'
+          const fs=require('fs');
+          const r=JSON.parse(fs.readFileSync('/tmp/glassbox-attempt.json','utf8'));
+          let out=['# GLASSBOX','',`## ${r.code}`];
+          if(r.valid){
+            out.push('',``LAND ${r.landingMark}``,'',`BEFORE ${r.deadline}`);
+          }
+          fs.writeFileSync('/tmp/verdict.md',out.join('\n'));
+          fs.writeFileSync('/tmp/env',`VALID=${r.valid?'1':'0'}\n`);
+          NODE
+
+          source /tmp/env
+          gh issue edit "$ISSUE" --add-label gb-attempt >/dev/null
+
+          if [ "$VALID" = "1" ]; then
+            gh issue edit "$ISSUE" --add-label gb-claimable >/dev/null
+          else
+            gh issue edit "$ISSUE" --add-label gb-not-landed >/dev/null
+          fi
+
+          gh issue comment "$ISSUE" --body-file /tmp/verdict.md >/dev/null
