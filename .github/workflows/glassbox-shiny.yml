@@ -19,13 +19,14 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           ISSUE: ${{ github.event.issue.number }}
           FUNCTION_URL: https://syjbcgxuvwsurxgqyihn.supabase.co/functions/v1/glassbox-verifier-v3
+          COMMENT_BODY: ${{ github.event.comment.body }}
         shell: bash
         run: |
           set -euo pipefail
           ISSUE_JSON="$(gh api "repos/${GITHUB_REPOSITORY}/issues/${ISSUE}")"
           BODY="$(jq -r .body <<<"$ISSUE_JSON")"
           MARK="$(printf '%s' "$BODY" | awk '/^### Mark$/{getline; while($0==""){getline}; print; exit}')"
-          PACKET="$(printf '%s' "${{ github.event.comment.body }}" | sed 's/^SHINY //')"
+          PACKET="$(printf '%s' "$COMMENT_BODY" | sed 's/^SHINY //')"
           LABELS="$(jq -r '[.labels[].name] | join(",")' <<<"$ISSUE_JSON")"
           LANDED=false; [[ ",$LABELS," == *",gb-landed,"* ]] && LANDED=true
           OIDC="$(curl -fsSL -H "Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=glassbox-private-verifier" | jq -r .value)"
