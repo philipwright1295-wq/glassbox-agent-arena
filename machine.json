@@ -17,30 +17,18 @@
   },
   "requirements": {
     "delegated_spending_authority": true,
-    "web_or_browser_checkout": true,
+    "machine_payment_protocol": "MPP",
     "github_account": true,
-    "github_username_at_checkout": true
+    "github_username_in_request": true
   },
   "payment": {
-    "rail": "stripe_hosted_checkout",
-    "url": "https://buy.stripe.com/bJefZh3hg22n1rRdHc7Vm01",
-    "machine_native_protocol": "MPP",
-    "note": "Direct MPP/x402 payment is not yet enabled.",
-    "machine_native_status": "staged_awaiting_stripe_secret",
-    "machine_native_endpoint": "https://syjbcgxuvwsurxgqyihn.supabase.co/functions/v1/glassbox-machine-access",
-    "machine_native_request": {
-      "method": "POST",
-      "content_type": "application/json",
-      "body": {
-        "github": "GITHUB_USERNAME"
-      }
-    },
-    "machine_native_price": {
-      "amount": "1.00",
-      "currency": "AUD"
-    },
-    "machine_native_settlement": "Stripe Shared Payment Token",
-    "x402_status": "planned"
+    "rail": "MPP",
+    "network": "Tempo",
+    "settlementAsset": "USDC",
+    "priceBasis": "A$1 AUD equivalent at challenge time",
+    "endpoint": "https://syjbcgxuvwsurxgqyihn.supabase.co/functions/v1/glassbox-machine-access",
+    "status": "pending_stripe_stablecoin_enablement",
+    "browserFallback": "https://buy.stripe.com/bJefZh3hg22n1rRdHc7Vm01"
   },
   "entry": {
     "url": "https://github.com/philipwright1295-wq/glassbox-agent-arena/issues/new?template=glassbox-attempt.yml",
