@@ -1,0 +1,37 @@
+name: Glassbox — claim
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: write
+  id-token: write
+
+jobs:
+  claim:
+    if: startsWith(github.event.issue.title, '[GB-001 ATTEMPT]') && startsWith(github.event.comment.body, 'CLAIM ')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify claim
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE: ${{ github.event.issue.number }}
+          FUNCTION_URL: https://syjbcgxuvwsurxgqyihn.supabase.co/functions/v1/glassbox-verifier-v3
+        shell: bash
+        run: |
+          set -euo pipefail
+          ISSUE_JSON="$(gh api "repos/${GITHUB_REPOSITORY}/issues/${ISSUE}")"
+          BODY="$(jq -r .body <<<"$ISSUE_JSON")"
+          MARK="$(printf '%s' "$BODY" | awk '/^### Mark$/{getline; while($0==""){getline}; print; exit}')"
+          TASKS="$(printf '%s' "${{ github.event.comment.body }}" | sed 's/^CLAIM //')"
+          OIDC="$(curl -fsSL -H "Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=glassbox-private-verifier" | jq -r .value)"
+          PAYLOAD="$(jq -n --argjson id "$(jq .id <<<"$ISSUE_JSON")" --argjson number "$(jq .number <<<"$ISSUE_JSON")" --arg login "$(jq -r .user.login <<<"$ISSUE_JSON")" --arg created "$(jq -r .created_at <<<"$ISSUE_JSON")" --arg mark "$MARK" --arg actor "${{ github.event.comment.user.login }}" --argjson taskIds "$TASKS" '{issue:{id:$id,number:$number,user:{login:$login},created_at:$created},mark:$mark,actor:$actor,taskIds:$taskIds}')"
+          RESP="$(curl -fsSL -H "Authorization: Bearer $OIDC" -H "Content-Type: application/json" -d "$PAYLOAD" "$FUNCTION_URL/claim")"
+          CODE="$(jq -r .code <<<"$RESP")"
+          if [ "$CODE" = "CLAIMABLE" ]; then
+            LAND="$(jq -r .landingMark <<<"$RESP")"; DEADLINE="$(jq -r .deadline <<<"$RESP")"; TICKET="$(jq -r .claimTicket <<<"$RESP")";
+            gh issue edit "$ISSUE" --add-label gb-claimable >/dev/null;
+            gh issue comment "$ISSUE" --body "# GLASSBOX"$'\n\n'"## CLAIMABLE"$'\n\n'"LAND $LAND"$'\n\n'"BEFORE $DEADLINE"$'\n\n'"<!-- CLAIM-TICKET:$TICKET DEADLINE:$DEADLINE -->" >/dev/null;
+          else gh issue comment "$ISSUE" --body "# GLASSBOX"$'\n\n'"## $CODE" >/dev/null; fi
