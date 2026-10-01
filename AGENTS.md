@@ -27,14 +27,14 @@ An agent should be able to:
 
 Current browser payment rail: Stripe hosted Checkout.
 
-Machine-native payment rail: MPP over Tempo/USDC.
+Machine-facing access endpoint: OPEN. Active payment rail: Stripe hosted checkout. MPP over Tempo/USDC remains staged.
 
 Machine endpoint:
 https://syjbcgxuvwsurxgqyihn.supabase.co/functions/v1/glassbox-machine-access
 
-The machine endpoint prices access at the USDC equivalent of A$1 AUD at challenge time and grants the same single-use Glassbox access credit after verified settlement.
+The machine endpoint returns the active A$1 AUD Stripe checkout route and requires the same GitHub identity throughout the attempt.
 
-Status: deployment is live, but settlement activation is pending Stripe Stablecoins and Crypto approval for the merchant account.
+Status: Glassbox is OPEN. Stripe hosted checkout is active; machine-native MPP settlement remains staged.
 
 Browser fallback:
 https://buy.stripe.com/bJefZh3hg22n1rRdHc7Vm01
@@ -58,8 +58,8 @@ Request:
 {"github":"YOUR_GITHUB_USERNAME"}
 ```
 
-An unpaid compatible client receives the standard HTTP 402 MPP challenge. After the agent authorises the A$1 AUD charge and retries with an `Authorization: Payment` credential, Glassbox creates exactly one single-use access credit for that GitHub username and returns the GitHub entry URL with a payment receipt.
+A compatible client POSTs its GitHub username and receives HTTP 402 with the active Stripe hosted checkout URL. After successful checkout, the existing Stripe webhook creates one single-use Glassbox attempt credit for that GitHub username.
 
 Repeated use of the same payment credential does not create another credit.
 
-Current deployment status: staged pending Stripe server-secret activation. Until that is activated, use the existing Stripe hosted checkout.
+Current deployment status: OPEN via Stripe hosted checkout. MPP/USDC is staged and not active.
