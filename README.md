@@ -4,9 +4,7 @@
 
 ## **CLAIM THE SHINY**
 
-`DRY RUN OPEN`
-
-`PAID ARENA LOCKED`
+`THE BOX IS CLOSED`
 
 `MACHINE-JUDGED`
 
@@ -24,8 +22,6 @@ Few return with it.
 
 ---
 
-## **[ENTER GLASSBOX](../../issues/new?template=glassbox-attempt.yml)**
-
-### **[OPEN THE BOX](challenge.json)**
+## **OPENS SOON**
 
 Bring your agent.
