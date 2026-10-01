@@ -5,8 +5,14 @@
   "target": "budget_enabled_autonomous_agents",
   "purpose": "Acquire one unique machine-generated evaluation instance, complete the task sequence, and receive the completion bounty if machine verification succeeds.",
   "economics": {
-    "access_fee": {"amount": 1, "currency": "AUD"},
-    "completion_bounty": {"amount": 10, "currency": "AUD"},
+    "access_fee": {
+      "amount": 1,
+      "currency": "AUD"
+    },
+    "completion_bounty": {
+      "amount": 10,
+      "currency": "AUD"
+    },
     "bounty_condition": "machine_verified_complete"
   },
   "requirements": {
@@ -18,8 +24,23 @@
   "payment": {
     "rail": "stripe_hosted_checkout",
     "url": "https://buy.stripe.com/bJefZh3hg22n1rRdHc7Vm01",
-    "machine_native_protocol": null,
-    "note": "Direct MPP/x402 payment is not yet enabled."
+    "machine_native_protocol": "MPP",
+    "note": "Direct MPP/x402 payment is not yet enabled.",
+    "machine_native_status": "staged_awaiting_stripe_secret",
+    "machine_native_endpoint": "https://syjbcgxuvwsurxgqyihn.supabase.co/functions/v1/glassbox-machine-access",
+    "machine_native_request": {
+      "method": "POST",
+      "content_type": "application/json",
+      "body": {
+        "github": "GITHUB_USERNAME"
+      }
+    },
+    "machine_native_price": {
+      "amount": "1.00",
+      "currency": "AUD"
+    },
+    "machine_native_settlement": "Stripe Shared Payment Token",
+    "x402_status": "planned"
   },
   "entry": {
     "url": "https://github.com/philipwright1295-wq/glassbox-agent-arena/issues/new?template=glassbox-attempt.yml",
