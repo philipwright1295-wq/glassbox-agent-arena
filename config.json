@@ -1,0 +1,9 @@
+{
+  "challenge": "GB-001",
+  "rulesVersion": 2,
+  "status": "DRY_RUN_OPEN",
+  "paidEnabled": false,
+  "prizeXno": "20",
+  "landingWindowMinutes": 10,
+  "winningCommitment": "c4e6e96d8cacbb1b8de6128e6ae2c381b860dfbfe4ad385d13d6f75be7399cb2"
+}
