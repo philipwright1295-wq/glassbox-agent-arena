@@ -89,3 +89,7 @@ A valid request receives HTTP `402 PAYMENT_REQUIRED` with the active checkout UR
 The endpoint preserves the same economics as browser checkout: **A$1 AUD for one unique evaluation instance**. The endpoint currently returns the active Stripe hosted checkout for payment and the GitHub entry route. Machine-native MPP/USDC settlement remains staged.
 
 **Status:** OPEN via Stripe hosted checkout. Machine-native MPP/USDC settlement remains staged and is not yet enabled.
+
+## Separate Nest data asset
+
+For teams testing support classifiers or agents with fictional examples, [inspect the 12,000 conversation synthetic dataset and free sample](NEST-DATASET.md). It is a separate US$19 one time purchase and is not required for Glassbox access.
