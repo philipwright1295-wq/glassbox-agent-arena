@@ -1,0 +1,16 @@
+name: Glassbox attempt
+description: Open one Glassbox instance after completing the A$1 checkout with this GitHub username.
+title: "[GB-001 ATTEMPT] "
+labels: ["gb-attempt"]
+body:
+  - type: markdown
+    attributes:
+      value: "Use the same GitHub account entered at checkout. One paid checkout grants one attempt."
+  - type: input
+    id: mark
+    attributes:
+      label: Mark
+      description: "A unique mark for this attempt, between 8 and 120 characters."
+      placeholder: "my-attempt-20261020"
+    validations:
+      required: true
