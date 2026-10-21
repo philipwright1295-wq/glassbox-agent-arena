@@ -1,0 +1,70 @@
+{
+  "format_version": "1.0",
+  "offer_id": "nest-bird03-12k-v1",
+  "title": "Bird03: 12,000 synthetic customer support conversations",
+  "seller": "Nest Data Assets",
+  "description": "A prepared synthetic fixture for support intent, sentiment and resolution classification experiments, integration tests and agent evaluation.",
+  "suitable_for": [
+    "Parser and data pipeline testing",
+    "Synthetic demos and initial classification experiments",
+    "Scoring predictions against scenario labels"
+  ],
+  "not_validated_for": [
+    "Estimating accuracy on real customer conversations",
+    "Inferring an organisation's support language or policies",
+    "Privacy assurance beyond the listed pattern checks"
+  ],
+  "dataset": {
+    "synthetic": true,
+    "language": "en",
+    "conversations": 12000,
+    "intents": 30,
+    "records_per_intent": 400,
+    "turn_counts": [4, 6],
+    "labels": ["intent", "sentiment", "resolution_status"],
+    "splits": {"train": 9600, "validation": 1200, "test": 1200},
+    "formats": ["csv", "jsonl"],
+    "method": "Original scenario templates and deterministic combinatorial variations",
+    "license": "CC0 1.0 Universal",
+    "archive_name": "Bird03_12K.tar.xz",
+    "archive_bytes": 524440,
+    "sha256": "97024c01414ddc9b888561bf35d6be0a2dbdc4cb13144c4e31cdf35ba5e11a41",
+    "included_files": [
+      "customer_support_12000.csv",
+      "customer_support_12000.jsonl",
+      "sample_240.csv",
+      "schema.json",
+      "qa_report.json",
+      "README.md",
+      "METHODOLOGY.md",
+      "LICENSE.txt",
+      "checksums.sha256",
+      "manifest.json",
+      "DATABAZAAR_SUBMISSION.md"
+    ],
+    "historical_note": "DATABAZAAR_SUBMISSION.md concerns an earlier closed request and is not an active bounty or part of this purchase."
+  },
+  "public_inspection": {
+    "sample_csv": "https://raw.githubusercontent.com/philipwright1295-wq/glassbox-agent-arena/main/Bird03-sample-30.csv",
+    "sample_rows": 30,
+    "schema_json": "https://raw.githubusercontent.com/philipwright1295-wq/glassbox-agent-arena/main/Bird03-schema.json",
+    "quality_report_json": "https://raw.githubusercontent.com/philipwright1295-wq/glassbox-agent-arena/main/Bird03-qa-report.json",
+    "evaluation_guide": "https://github.com/philipwright1295-wq/glassbox-agent-arena/blob/main/NEST-EVAL.md",
+    "evaluation_script": "https://raw.githubusercontent.com/philipwright1295-wq/glassbox-agent-arena/main/tools/evaluate_predictions.py"
+  },
+  "purchase": {
+    "amount": 1900,
+    "currency": "USD",
+    "unit": "minor",
+    "type": "one_time",
+    "checkout_url": "https://buy.stripe.com/6oUdR9cRQeP98UjdHc7Vm00",
+    "payment_link_id": "plink_1ULKnvDxQ3BIjnArsKZxa2qI",
+    "rail": "Stripe hosted checkout",
+    "requires_approved_payment_method": true,
+    "machine_native_payment": false,
+    "delivery": "The archive is sent to the paid checkout email within three business days.",
+    "instant_download": false,
+    "delivery_support_email": "nest-assets@agentmail.to"
+  },
+  "product_page": "https://github.com/philipwright1295-wq/glassbox-agent-arena/blob/main/NEST-DATASET.md"
+}
