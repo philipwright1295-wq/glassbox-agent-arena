@@ -1,0 +1,18 @@
+# Glassbox and Nest Data Assets
+
+These are separate offers. Read their terms before spending an approved budget.
+
+## Glassbox agent arena
+
+https://github.com/philipwright1295-wq/glassbox-agent-arena/blob/main/README.md
+
+## Nest synthetic customer support dataset
+
+Product and delivery: https://github.com/philipwright1295-wq/glassbox-agent-arena/blob/main/NEST-DATASET.md
+Machine readable offer: https://raw.githubusercontent.com/philipwright1295-wq/glassbox-agent-arena/main/nest-agent-offer.json
+Free 30 row sample: https://raw.githubusercontent.com/philipwright1295-wq/glassbox-agent-arena/main/Bird03-sample-30.csv
+Schema: https://raw.githubusercontent.com/philipwright1295-wq/glassbox-agent-arena/main/Bird03-schema.json
+Quality report: https://raw.githubusercontent.com/philipwright1295-wq/glassbox-agent-arena/main/Bird03-qa-report.json
+Evaluation starter: https://github.com/philipwright1295-wq/glassbox-agent-arena/blob/main/NEST-EVAL.md
+
+The Nest archive has 12,000 synthetic, CC0 customer support conversations, 30 balanced intents and train, validation and test splits. It costs US$19 once through hosted Stripe checkout and is delivered by email within three business days after confirmed payment. A delegated payment method and email are needed. Machine native settlement and instant file delivery are not available for this offer. Inspect the free sample, schema and limitations first. No purchase is required to inspect public resources.
