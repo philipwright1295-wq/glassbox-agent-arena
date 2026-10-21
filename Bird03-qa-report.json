@@ -1,0 +1,75 @@
+{
+  "dataset_records": 12000,
+  "intent_count": 30,
+  "intent_distribution": {
+    "account_access": 400,
+    "address_change": 400,
+    "billing_question": 400,
+    "cancel_subscription": 400,
+    "complaint": 400,
+    "damaged_item": 400,
+    "data_export": 400,
+    "delayed_delivery": 400,
+    "downgrade_plan": 400,
+    "duplicate_charge": 400,
+    "exchange_request": 400,
+    "feature_request": 400,
+    "integration_help": 400,
+    "invoice_request": 400,
+    "order_modification": 400,
+    "outage_report": 400,
+    "password_reset": 400,
+    "payment_failed": 400,
+    "positive_feedback": 400,
+    "privacy_request": 400,
+    "product_question": 400,
+    "promo_code": 400,
+    "refund_request": 400,
+    "return_request": 400,
+    "security_concern": 400,
+    "shipping_status": 400,
+    "subscription_pause": 400,
+    "technical_error": 400,
+    "upgrade_plan": 400,
+    "wrong_item": 400
+  },
+  "sentiment_distribution": {
+    "mixed": 2420,
+    "negative": 3808,
+    "neutral": 4192,
+    "positive": 1580
+  },
+  "resolution_distribution": {
+    "escalated": 1848,
+    "pending_customer": 1636,
+    "resolved": 7156,
+    "unresolved": 1360
+  },
+  "turn_count_distribution": {
+    "4": 4000,
+    "6": 8000
+  },
+  "split_distribution": {
+    "test": 1200,
+    "train": 9600,
+    "validation": 1200
+  },
+  "unique_conversation_ids": 12000,
+  "unique_exact_turn_sequences": 12000,
+  "minimum_turns": 4,
+  "maximum_turns": 6,
+  "mean_turns": 5.333,
+  "all_english_by_construction": true,
+  "synthetic_records": 12000,
+  "records_marked_pii_present": 0,
+  "pii_pattern_scan_hits": {
+    "email": 0,
+    "url": 0,
+    "phone_like": 0,
+    "credit_card_like": 0,
+    "ipv4": 0
+  },
+  "validation_errors": [],
+  "checks_passed": true,
+  "generator_seed": 20260928
+}
