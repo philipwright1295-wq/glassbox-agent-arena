@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bird03 Synthetic Customer Support Conversation",
+  "type": "object",
+  "required": [
+    "conversation_id",
+    "turns",
+    "intent",
+    "sentiment",
+    "resolution_status",
+    "resolution",
+    "turn_count",
+    "language",
+    "split",
+    "synthetic",
+    "pii_present"
+  ],
+  "properties": {
+    "conversation_id": {
+      "type": "string",
+      "pattern": "^B03-CS-[0-9]{6}$"
+    },
+    "turns": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "required": [
+          "role",
+          "text"
+        ],
+        "properties": {
+          "role": {
+            "enum": [
+              "customer",
+              "agent"
+            ]
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "intent": {
+      "type": "string",
+      "enum": [
+        "account_access",
+        "address_change",
+        "billing_question",
+        "cancel_subscription",
+        "complaint",
+        "damaged_item",
+        "data_export",
+        "delayed_delivery",
+        "downgrade_plan",
+        "duplicate_charge",
+        "exchange_request",
+        "feature_request",
+        "integration_help",
+        "invoice_request",
+        "order_modification",
+        "outage_report",
+        "password_reset",
+        "payment_failed",
+        "positive_feedback",
+        "privacy_request",
+        "product_question",
+        "promo_code",
+        "refund_request",
+        "return_request",
+        "security_concern",
+        "shipping_status",
+        "subscription_pause",
+        "technical_error",
+        "upgrade_plan",
+        "wrong_item"
+      ]
+    },
+    "sentiment": {
+      "enum": [
+        "negative",
+        "neutral",
+        "positive",
+        "mixed"
+      ]
+    },
+    "resolution_status": {
+      "enum": [
+        "resolved",
+        "unresolved",
+        "escalated",
+        "pending_customer"
+      ]
+    },
+    "resolution": {
+      "enum": [
+        "resolved",
+        "unresolved",
+        "escalated",
+        "pending_customer"
+      ],
+      "description": "Compatibility alias of resolution_status"
+    },
+    "turn_count": {
+      "type": "integer",
+      "minimum": 4
+    },
+    "language": {
+      "const": "en"
+    },
+    "split": {
+      "enum": [
+        "train",
+        "validation",
+        "test"
+      ]
+    },
+    "synthetic": {
+      "const": true
+    },
+    "pii_present": {
+      "const": false
+    }
+  }
+}
