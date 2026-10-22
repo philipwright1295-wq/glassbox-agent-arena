@@ -2,7 +2,7 @@ name: Publish Glassbox MCP listing
 on:
   push:
     branches: [nest-mcp-integration]
-    paths: [.github/workflows/publish-glassbox-mcp.yml]
+    paths: [.github/workflows/publish-glassbox-mcp.yml, mcp/server.json]
 permissions:
   contents: read
 jobs:
