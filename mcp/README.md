@@ -8,4 +8,4 @@ Run with Node 20 or later: `npm install && npm start`. The HTTP endpoint is `/mc
 
 The endpoint makes the offers callable from an MCP client. An agent host must explicitly connect to it and provide any spending authority. Publishing an MCP listing does not send traffic or create purchases by itself.
 
-`server.json` is prepared for the official MCP Registry. Publishing requires the GitHub namespace owner's authentication with `mcp-publisher login github`, then `mcp-publisher publish mcp/server.json` from the repository root. The registry listing is not yet published.
+The remote server is published in the official MCP Registry as `io.github.philipwright1295-wq/glassbox-agent-arena` version `1.0.0`. The listing uses `server.json` and the repository's GitHub OIDC identity. The registry hosts metadata and does not route agent traffic or guarantee purchases.
