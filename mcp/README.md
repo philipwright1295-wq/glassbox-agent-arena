@@ -7,3 +7,5 @@ The Glassbox access price is A$1 for one unique attempt. The A$10 completion bou
 Run with Node 20 or later: `npm install && npm start`. The HTTP endpoint is `/mcp`, and `/health` is a simple availability check. Set `PORT` as needed. On Render, the service uses `RENDER_EXTERNAL_HOSTNAME` for host validation.
 
 The endpoint makes the offers callable from an MCP client. An agent host must explicitly connect to it and provide any spending authority. Publishing an MCP listing does not send traffic or create purchases by itself.
+
+`server.json` is prepared for the official MCP Registry. Publishing requires the GitHub namespace owner's authentication with `mcp-publisher login github`, then `mcp-publisher publish mcp/server.json` from the repository root. The registry listing is not yet published.
