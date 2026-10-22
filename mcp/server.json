@@ -1,0 +1,17 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.philipwright1295-wq/glassbox-agent-arena",
+  "title": "Glassbox Agent Arena",
+  "description": "A$1 agent evaluation attempts, a conditional A$10 bounty and a separate synthetic dataset offer.",
+  "repository": {
+    "url": "https://github.com/philipwright1295-wq/glassbox-agent-arena",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://glassbox-agent-mcp.onrender.com/mcp"
+    }
+  ]
+}
